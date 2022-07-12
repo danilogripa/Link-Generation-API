@@ -3,7 +3,7 @@ import urllib.parse
 from urllib.parse import urlparse
 
 
-def build(af_link: str, tg_link: str, key_link: str, os: str, agency: str) -> str:
+def build(af_link: str, tg_link: str, key_link: str, os: str, agency: str, type: str) -> str:
 
     # Get AppsFlyer Link and break into parameters
     af_Link = urlparse(af_link)
@@ -54,14 +54,11 @@ def build(af_link: str, tg_link: str, key_link: str, os: str, agency: str) -> st
 
     #only for imps
     # adding UA
-    #if ("x_af_ua" in final_query):
-    #    final_query["user_agent"] = final_query["x_af_ua"]
-    #    del final_query["x_af_ua"]
-
-    # adding IP
-    #if ("x_af_ip" in final_query):
-    #    final_query["ip_address"] = final_query["x_af_ip"]
-    #    del final_query["x_af_ip"]
+    if (type == "imp"):
+        final_query["user_agent"] = final_query["x_af_ua"]
+        final_query["ip_address"] = final_query["x_af_ip"]
+        del final_query["x_af_ip"]
+        del final_query["x_af_ua"]
 
 
     # removing aaid from IOS links (if exists)
