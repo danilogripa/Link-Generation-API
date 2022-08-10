@@ -54,7 +54,7 @@ def build(af_link: str, tg_link: str, key_link: str, os: str, agency: str, type:
 
     #only for imps
     # adding UA
-    if (type == "imp"):
+    if (type == "imp" and "x_af_ip" in final_query and "x_af_ua" in final_query):
         final_query["user_agent"] = final_query["x_af_ua"]
         final_query["ip_address"] = final_query["x_af_ip"]
         del final_query["x_af_ip"]
