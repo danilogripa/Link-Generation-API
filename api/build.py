@@ -60,7 +60,7 @@ def build(red: str, af_link: str, tg_link: str, key_link: str, os: str, agency: 
         del final_query["x_af_ip"]
         del final_query["x_af_ua"]
 
-    # Checking for URL redirect
+    # Checking for URL redirect and encoding it
     if("x_af_r" in final_query):
         final_query["x_af_r"] = urllib.parse.quote(af_query["af_r"][0], safe="")
 
@@ -71,6 +71,22 @@ def build(red: str, af_link: str, tg_link: str, key_link: str, os: str, agency: 
     # removing idfa from Android links (if exists)
     if ((os == "android") and ("idfa" in final_query)):
         del final_query["idfa"]
+
+    # last changes if trk link + standard redirect
+    if ((red == "yes") and (type == "trk")):
+        # remove token if exists
+        if("token" in final_query):
+            del final_query["token"]
+
+    # last changes if trk link + S2S
+    #if ((red == "no") and (type == "trk")):
+
+    # last changes if imp link + standard Redirect
+    #if ((red == "yes") and (type == "imp")):
+
+    # last changes if imp link + S2S
+    #if ((red == "no") and (type == "imp")):
+
 
     end_query = '&'.join('{}={}'.format(k, v) for k, v in final_query.items())
     final_link = tg_link.scheme + "://" + tg_link.netloc + "/" + tg_link.path + "?" + tg_link.params + end_query
