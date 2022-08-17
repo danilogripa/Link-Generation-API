@@ -3,7 +3,7 @@ import urllib.parse
 from urllib.parse import urlparse
 
 
-def build(af_link: str, tg_link: str, key_link: str, os: str, agency: str, type: str) -> str:
+def build(red: str, af_link: str, tg_link: str, key_link: str, os: str, agency: str, type: str) -> str:
 
     # Get AppsFlyer Link and break into parameters
     af_Link = urlparse(af_link)
@@ -60,6 +60,9 @@ def build(af_link: str, tg_link: str, key_link: str, os: str, agency: str, type:
         del final_query["x_af_ip"]
         del final_query["x_af_ua"]
 
+    # Checking for URL redirect
+    if("x_af_r" in final_query):
+        final_query["x_af_r"] = urllib.parse.quote(af_query["af_r"][0], safe="")
 
     # removing aaid from IOS links (if exists)
     if ((os == "ios") and ("aaid" in final_query)):

@@ -11,7 +11,7 @@ app.config["DEBUG"] = True
 @app.route('/convert', methods=['POST'])
 def api_test():
     request_data = request.get_json()
-    return build(request_data['af'], request_data['tg'], request_data['key'], request_data['os'], request_data['ag'],
+    return build(request_data['red'], request_data['af'], request_data['tg'], request_data['key'], request_data['os'], request_data['ag'],
                  request_data['type'])
 
 
