@@ -1,7 +1,6 @@
 import build
 import flask
 from flask import request
-
 from build import build
 
 app = flask.Flask(__name__)
